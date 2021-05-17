@@ -8,8 +8,6 @@ const env_file = "/app/.env",
   fs = require("fs"),
   path = require("path");
 
-lib.env_vars_setter = setEnvVar;
-
 lib.env_vars = env_vars;
 lib.setEnvVar = setEnvVar;
 lib.getEnvVar = getEnvVar;
@@ -31,7 +29,7 @@ fs.readFileSync(env_file, "utf8")
         return env_values[key];
       },
       set: function(value) {
-        lib.env_vars_setter(key, value, function() {});
+        setEnvVar(key, value, function() {});
       },
       enumerable: true
     });
