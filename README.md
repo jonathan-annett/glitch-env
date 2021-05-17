@@ -82,3 +82,15 @@ getEnvVar ('MY_SECRET', function(err,value){
 
 ```
 
+alternatively, there is `addEnvVar` which is a synchronous version of setEnvVar, which also allows new keys to be added.
+
+```js
+const { addEnvVar } = require("glitch-env");
+
+addEnvVar ('MY_SECRET','very secret');// add or replace MY_SECRET;
+
+```
+
+
+
+
