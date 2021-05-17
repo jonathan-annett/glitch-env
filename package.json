@@ -1,0 +1,26 @@
+{
+    "name": "glitch-env",
+    "description": "code to let you access & update your .env file from your glitch app",
+    "version": "1.0.0",
+    "engines": {
+        "node": ">=6.9.5"
+    },
+    "repository": {
+      "url": "https://github.com/jonathan-annett/glitch-env",
+      "type": "git"
+    },
+    "keywords": [
+        "glitch",
+        "env",
+        "update"
+     ],
+    "author": "Jonathan Annett",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/jonathan-annett/glitch-env/issues"
+    },
+    "homepage": "https://github.com/jonathan-annett/glitch-env#readme",
+    "dependencies": {
+
+    }
+}
