@@ -8,9 +8,12 @@ const env_file = "/app/.env",
   fs = require("fs"),
   path = require("path");
 
+lib.env_vars_setter = setEnvVar;
+
 lib.env_vars = env_vars;
 lib.setEnvVar = setEnvVar;
 lib.getEnvVar = getEnvVar;
+lib.addEnvVar = addEnvVar;
 
 fs.readFileSync(env_file, "utf8")
   .trim()
@@ -28,7 +31,7 @@ fs.readFileSync(env_file, "utf8")
         return env_values[key];
       },
       set: function(value) {
-        setEnvVar(key, value, function() {});
+        lib.env_vars_setter(key, value, function() {});
       },
       enumerable: true
     });
@@ -75,6 +78,59 @@ function setEnvVar(key, value, cb) {
       }
     }
   });
+}
+
+function addEnvVar(key, value) {
+  const detect = key.trim() + "=",
+    new_line = detect + value.trim();
+  try {
+    
+    const data = fs.readFileSync(env_file, "utf8");
+    
+    const existing = data.split(eol);
+    if (existing.indexOf(new_line) >= 0) {
+      const msg = new_line + " already exists in .env. not updating file";
+      //console.log(msg);
+      process.env[key] = value;
+      env_values[key] = value;
+      return;
+    } else {
+      let found = false;
+      let last_valid=0;
+      const new_lines = existing
+        .map(function(line, index) {
+          if (line.trim().startsWith(detect)) {
+            found = true;
+            const msg = line + " >>> " + new_line;
+            //               console.log(msg);
+            return new_line;
+          }
+          if (line.indexOf('=')>0 && !line.trim().startsWith('#')) {
+            last_valid=index;
+          }
+          return line;
+        });
+      
+        if (!found) { 
+          if (last_valid===new_lines.length-1) {
+            new_lines.push(new_line);
+          } else {
+            new_lines.splice(last_valid+1,0,new_line);
+          }
+        }
+      const new_data = new_lines.join(eol);
+      
+      const msg = "updating .env";
+      fs.writeFileSync(env_file, new_data);
+      process.env[key] = value;
+      env_values[key] = value;
+      
+    }
+    
+  } catch (ouch) {
+    console.log(ouch);
+  }
+ 
 }
 
 function getEnvVar(key, cb) {
