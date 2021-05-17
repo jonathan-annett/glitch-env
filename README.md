@@ -1,6 +1,21 @@
 # glitch-env
 code to let your glitch app change contents of .env
 
+
+to install  in your glitch app, add ` "glitch-env": "github:jonathan-annett/glitch-env"` to the dependancies section in `package.json`
+
+
+**package.json**
+
+```json
+"dependencies": {
+    "glitch-env": "github:jonathan-annett/glitch-env" 
+  },
+```
+
+
+
+
 assuming your `.env` file contains
 
 ```bash
