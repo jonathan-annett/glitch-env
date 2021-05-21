@@ -1,12 +1,25 @@
 const lib = (module.exports = {});
+const is_glitch = require("glitch-detect");
 
-const env_file = "/app/.env",
+const 
+  fs = require("fs"),
+  path = require("path"),
+  main_module_file = process.mainModule.filename,
+  main_module_path = path.dirname(main_module_file),
+  env_file = is_glitch ? "/app/.env" : path.join(main_module_path,".env"), 
   eol = "\n",
   env_values = {},
   env_vars = {},
-  env_keys = [],
-  fs = require("fs"),
-  path = require("path");
+  env_keys = [];
+
+if (!is_glitch && !fs.existsSync(env_file)) {
+  fs.writeFileSync(env_file,[
+    '# glitch-env: auto created .env (glitch compatible secrets)'+(new Date()).toUTCString()
+    '# note - this file is only as secure as the user / process running '+main_module_file,
+    '# and is provided for code-compatability only. please ensure you secure the file in other ways.',
+    '# (for example lock down the directory and user permissions appropriately )'  
+  ].join("\n");
+}
 
 lib.env_vars = env_vars;
 lib.setEnvVar = setEnvVar;
