@@ -21,6 +21,6 @@
     },
     "homepage": "https://github.com/jonathan-annett/glitch-env#readme",
     "dependencies": {
-
+       "glitch-detect": "github:jonathan-annett/glitch-detect#7b7bd5fd19b0fdf91a0525ce318350fb5716d243"
     }
 }
