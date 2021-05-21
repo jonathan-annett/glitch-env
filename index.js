@@ -18,7 +18,7 @@ if (!is_glitch && !fs.existsSync(env_file)) {
     '# note - this file is only as secure as the user / process running '+main_module_file,
     '# and is provided for code-compatability only. please ensure you secure the file in other ways.',
     '# (for example lock down the directory and user permissions appropriately )'  
-  ].join("\n");
+  ].join("\n"));
 }
 
 lib.env_vars = env_vars;
