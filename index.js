@@ -14,7 +14,7 @@ const
 
 if (!is_glitch && !fs.existsSync(env_file)) {
   fs.writeFileSync(env_file,[
-    '# glitch-env: auto created .env (glitch compatible secrets)'+(new Date()).toUTCString()
+    '# glitch-env: auto created .env (glitch compatible secrets)' +(new Date()).toUTCString(),
     '# note - this file is only as secure as the user / process running '+main_module_file,
     '# and is provided for code-compatability only. please ensure you secure the file in other ways.',
     '# (for example lock down the directory and user permissions appropriately )'  
