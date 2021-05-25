@@ -40,6 +40,9 @@ fs.readFileSync(env_file, "utf8")
     const key = trimmed.substr(0, eq);
     env_keys.push(key);
     env_values[key] = trimmed.substr(eq + 1);
+    if (!is_glitch) {
+       process.env[key] = env_values[key];
+    }
     Object.defineProperty(env_vars, key, {
       get: function() {
         return env_values[key];
